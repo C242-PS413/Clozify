@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.c242ps413.clozify.R
 import com.c242ps413.clozify.data.model.RecommendationItem
 import com.c242ps413.clozify.databinding.ItemRecommendationBinding
 
@@ -39,7 +38,7 @@ class HomeAdapter :
                 .load(item.imgPants) // Memuat gambar dari drawable
                 .into(binding.imgPants)
 
-            binding.cardViewFavorite.setOnClickListener {
+            /*binding.cardViewFavorite.setOnClickListener {
                 val tag = binding.ivFavorite.tag
                 if (tag == "Not Saved") {
                     binding.ivFavorite.setImageResource(R.drawable.ic_favorite)
@@ -48,7 +47,7 @@ class HomeAdapter :
                     binding.ivFavorite.setImageResource(R.drawable.ic_favoriteborder)
                     binding.ivFavorite.tag = "Not Saved"
                 }
-            }
+            }*/
         }
     }
 
