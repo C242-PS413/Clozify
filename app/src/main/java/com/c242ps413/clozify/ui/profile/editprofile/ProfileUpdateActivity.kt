@@ -63,8 +63,8 @@ class ProfileUpdateActivity : AppCompatActivity() {
                 }
 
                 when (profile.gender) {
-                    "Perempuan" -> binding.radioGroupGender.check(R.id.radioFemale)
-                    "Laki-Laki" -> binding.radioGroupGender.check(R.id.radioMale)
+                    "Women" -> binding.radioGroupGender.check(R.id.radioFemale)
+                    "Men" -> binding.radioGroupGender.check(R.id.radioMale)
                     else -> binding.radioGroupGender.clearCheck()
                 }
             }
@@ -82,8 +82,8 @@ class ProfileUpdateActivity : AppCompatActivity() {
 
             val selectedGenderId = binding.radioGroupGender.checkedRadioButtonId
             val gender = when (selectedGenderId) {
-                R.id.radioFemale -> "Perempuan"
-                R.id.radioMale -> "Laki-Laki"
+                R.id.radioFemale -> "Women"
+                R.id.radioMale -> "Men"
                 else -> null
             }
 
@@ -112,7 +112,7 @@ class ProfileUpdateActivity : AppCompatActivity() {
             if (existingProfile != null) {
                 // Update profile
                 viewModel.update(profile)
-                Toast.makeText(this, "Profil diperbarui", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Profile successfully updated", Toast.LENGTH_SHORT).show()
 
                 // Navigate back to ProfileFragment
                 val fragmentTransaction: FragmentTransaction = supportFragmentManager.beginTransaction()
@@ -123,7 +123,7 @@ class ProfileUpdateActivity : AppCompatActivity() {
             } else {
                 // Insert new profile
                 viewModel.insert(profile)
-                Toast.makeText(this, "Profil baru ditambahkan", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "New profile added", Toast.LENGTH_SHORT).show()
             }
             binding.progressBar.visibility = ProgressBar.GONE
         })
@@ -147,7 +147,7 @@ class ProfileUpdateActivity : AppCompatActivity() {
             if (location != null) {
                 getCityFromLocation(location.latitude, location.longitude)
             } else {
-                Toast.makeText(this, "Tidak dapat mendapatkan lokasi", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Unable to get location", Toast.LENGTH_SHORT).show()
                 binding.progressBar.visibility = ProgressBar.GONE
             }
         }
@@ -158,7 +158,7 @@ class ProfileUpdateActivity : AppCompatActivity() {
             if (isGranted) {
                 getLocation()
             } else {
-                Toast.makeText(this, "Izin lokasi ditolak", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Location permission denied", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -167,14 +167,14 @@ class ProfileUpdateActivity : AppCompatActivity() {
         try {
             val addresses = geocoder.getFromLocation(latitude, longitude, 1)
             if (addresses != null && addresses.isNotEmpty()) {
-                val cityName = addresses[0].subAdminArea?.replace("Kota ", "") ?: "Nama kota tidak ditemukan"
+                val cityName = addresses[0].subAdminArea?.replace("Kota ", "") ?: "City name not found"
                 binding.editTextLocation.setText(cityName)
             } else {
-                binding.editTextLocation.hint = "Masukkan kota Anda"
+                binding.editTextLocation.hint = "Insert your city"
             }
         } catch (e: IOException) {
             e.printStackTrace()
-            binding.editTextLocation.hint = "Kesalahan Geocoder"
+            binding.editTextLocation.hint = "Geocoder Error"
         } finally {
             binding.progressBar.visibility = ProgressBar.GONE
         }

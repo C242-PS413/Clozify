@@ -2,12 +2,13 @@ package com.c242ps413.clozify.data.repository
 
 import android.app.Application
 import androidx.lifecycle.LiveData
+//import com.c242ps413.clozify.data.model.RecommendationItem
 import com.c242ps413.clozify.data.databases.ClozifyRoomDatabase
 import com.c242ps413.clozify.data.databases.favorite.Favorite
 import com.c242ps413.clozify.data.databases.favorite.FavoriteDao
-import com.c242ps413.clozify.data.model.RecommendationItem
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import com.c242ps413.clozify.data.model.RecommendationItem
 
 class FavoriteRepository(application: Application) {
     private val mFavoriteDao: FavoriteDao

@@ -1,82 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="250dp"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="8dp"
     app:cardCornerRadius="16dp"
-    app:cardElevation="4dp">
+    app:cardElevation="6dp">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="14dp">
 
-        <!-- Gambar Baju dan Celana -->
-        <LinearLayout
+        <ImageView
+            android:id="@+id/image"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="8dp"
-            android:weightSum="2">
+            android:layout_height="280dp"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="Image"
+            android:scaleType="centerCrop"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-            <!-- Gambar Baju -->
-            <ImageView
-                android:id="@+id/imgShirt"
-                android:layout_width="0dp"
-                android:layout_height="200dp"
-                android:layout_weight="1"
-                android:layout_marginEnd="8dp"
-                android:scaleType="centerCrop"
-                android:contentDescription="Shirt Image"
-                tools:srcCompat="@tools:sample/backgrounds/scenic"/>
-
-            <!-- Gambar Celana -->
-            <ImageView
-                android:id="@+id/imgPants"
-                android:layout_width="0dp"
-                android:layout_height="200dp"
-                android:layout_weight="1"
-                android:scaleType="centerCrop"
-                android:contentDescription="Pants Image"
-                tools:srcCompat="@tools:sample/backgrounds/scenic"/>
-        </LinearLayout>
-
-        <!-- Tombol Like (Posisi kanan atas) -->
         <androidx.cardview.widget.CardView
             android:id="@+id/cardViewFavorite"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_gravity="end"
-            android:layout_marginBottom="8dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_above="@+id/tvItemDescription"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="1dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="15dp"
             app:cardBackgroundColor="#E0E0E0"
-            app:cardCornerRadius="16dp"
+            app:cardCornerRadius="24dp"
             app:cardElevation="4dp">
 
             <ImageView
                 android:id="@+id/iv_favorite"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_favoriteborder"
                 android:tag="Not Saved" />
         </androidx.cardview.widget.CardView>
 
-        <!-- Deskripsi Item -->
         <TextView
             android:id="@+id/tvItemDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/image"
+            android:layout_marginTop="10dp"
             android:text="Deskripsi Item"
-            android:textColor="@android:color/black"
             android:textSize="16sp"
             android:gravity="center"
             android:textStyle="bold"
-            android:layout_marginBottom="8dp"
             android:ellipsize="end"
-            android:maxLines="2"/>
-
-    </LinearLayout>
+            android:maxLines="2" />
+    </RelativeLayout>
 </androidx.cardview.widget.CardView>

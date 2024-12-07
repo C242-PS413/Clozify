@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
     <!-- Izin akses lokasi (jika diperlukan) -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
-    <!-- Izin akses penyimpanan (jika diperlukan) -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
-    <!-- Untuk API Level 30 dan lebih tinggi, izin ini diperlukan untuk akses penuh ke penyimpanan -->
-    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="29" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- Izin akses penyimpanan (jika diperlukan) -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- Untuk API Level 30 dan lebih tinggi, izin ini diperlukan untuk akses penuh ke penyimpanan -->
+    <uses-permission
+        android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="29" /> <!-- camera -->
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -24,27 +22,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Clozify"
         tools:targetApi="31">
-
-        <!-- Activity untuk Update Profile -->
+        <activity
+            android:name=".ui.upload.UploadActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.upload.CameraActivity"
+            android:exported="false" /> <!-- Activity untuk Update Profile -->
         <activity
             android:name=".ui.profile.editprofile.ProfileUpdateActivity"
-            android:exported="false" />
-
-        <!-- Splash Screen Activity -->
+            android:exported="false" /> <!-- Splash Screen Activity -->
         <activity
             android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Main Activity -->
+        </activity> <!-- Main Activity -->
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
     </application>
 
 </manifest>

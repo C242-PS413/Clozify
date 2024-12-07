@@ -6,59 +6,48 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.c242ps413.clozify.data.model.RecommendationItem
+import com.c242ps413.clozify.data.api.response.RecommendationItem
 import com.c242ps413.clozify.databinding.ItemRecommendationBinding
 
-class HomeAdapter :
-    ListAdapter<RecommendationItem, HomeAdapter.HomeViewHolder>(DiffCallback) {
+class HomeAdapter(private val listener: OnItemClickListener) : ListAdapter<RecommendationItem, HomeAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
-        val binding = ItemRecommendationBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
-        )
-        return HomeViewHolder(binding)
+    interface OnItemClickListener {
+        fun onItemClick(event: RecommendationItem)
     }
 
-    override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
-        val item = getItem(position)
-        holder.bind(item)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+        val binding = ItemRecommendationBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MyViewHolder(binding)
     }
 
-    class HomeViewHolder(private val binding: ItemRecommendationBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        val event = getItem(position)
+        holder.bind(event, listener)
+    }
 
-        fun bind(item: RecommendationItem) {
-            binding.tvItemDescription.text = item.description
+    class MyViewHolder(private val binding: ItemRecommendationBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(event: RecommendationItem, listener: OnItemClickListener) {
+            binding.tvItemDescription.text = event.name
             Glide.with(binding.root.context)
-                .load(item.imgShirt) // Memuat gambar dari drawable
-                .into(binding.imgShirt)
-            Glide.with(binding.root.context)
-                .load(item.imgPants) // Memuat gambar dari drawable
-                .into(binding.imgPants)
+                .load(event.image)
+                .into(binding.image)
 
-            /*binding.cardViewFavorite.setOnClickListener {
-                val tag = binding.ivFavorite.tag
-                if (tag == "Not Saved") {
-                    binding.ivFavorite.setImageResource(R.drawable.ic_favorite)
-                    binding.ivFavorite.tag = "Saved"
-                } else {
-                    binding.ivFavorite.setImageResource(R.drawable.ic_favoriteborder)
-                    binding.ivFavorite.tag = "Not Saved"
-                }
-            }*/
+            // Set click listener
+            binding.root.setOnClickListener {
+                listener.onItemClick(event) // Panggil listener saat item diklik
+            }
         }
     }
 
-    companion object DiffCallback : DiffUtil.ItemCallback<RecommendationItem>() {
-        override fun areItemsTheSame(oldItem: RecommendationItem, newItem: RecommendationItem): Boolean {
-            return oldItem.description == newItem.description  // Pastikan description unik, atau tambah ID
-        }
+    companion object {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<RecommendationItem>() {
+            override fun areItemsTheSame(oldItem: RecommendationItem, newItem: RecommendationItem): Boolean {
+                return oldItem.name == newItem.name
+            }
 
-        override fun areContentsTheSame(oldItem: RecommendationItem, newItem: RecommendationItem): Boolean {
-            return oldItem == newItem
+            override fun areContentsTheSame(oldItem: RecommendationItem, newItem: RecommendationItem): Boolean {
+                return oldItem == newItem
+            }
         }
     }
-
 }
