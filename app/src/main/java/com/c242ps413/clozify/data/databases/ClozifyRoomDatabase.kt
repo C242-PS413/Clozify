@@ -9,7 +9,7 @@ import com.c242ps413.clozify.data.databases.favorite.FavoriteDao
 import com.c242ps413.clozify.data.databases.profile.Profile
 import com.c242ps413.clozify.data.databases.profile.ProfileDao
 
-@Database(entities = [Profile::class, Favorite::class], version = 2)
+@Database(entities = [Profile::class, Favorite::class], version = 4)
 abstract class ClozifyRoomDatabase : RoomDatabase() {
     abstract fun profileDao() : ProfileDao
     abstract fun favoriteDao() : FavoriteDao

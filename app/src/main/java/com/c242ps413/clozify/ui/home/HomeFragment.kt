@@ -20,6 +20,7 @@ import com.c242ps413.clozify.R
 import com.c242ps413.clozify.data.api.response.RecommendationItem
 import com.c242ps413.clozify.data.api.retrofit.ApiConfig
 import com.c242ps413.clozify.data.model.dummy.DummyData
+import com.c242ps413.clozify.data.repository.FavoriteRepository
 import com.c242ps413.clozify.data.repository.ProfileRepository
 import com.c242ps413.clozify.databinding.FragmentHomeBinding
 import com.c242ps413.clozify.ui.upload.CameraActivity
@@ -54,8 +55,11 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         val application = requireActivity().application
-        val repository = ProfileRepository(application)
-        val homeViewModel = ViewModelProvider(this, HomeViewModelFactory(repository))[HomeViewModel::class.java]
+        val profileRepository = ProfileRepository(application)
+        val favoriteRepository = FavoriteRepository(application)  // Tambahkan FavoriteRepository
+        val homeViewModel = ViewModelProvider(
+            this, HomeViewModelFactory(profileRepository, favoriteRepository) // Berikan keduanya ke factory
+        )[HomeViewModel::class.java]
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -71,9 +75,9 @@ class HomeFragment : Fragment() {
         // Initialize Adapter for Recommendations
         homeAdapter = HomeAdapter(object : HomeAdapter.OnItemClickListener {
             override fun onItemClick(event: RecommendationItem) {
-                Toast.makeText(requireContext(), "Item clicked: ${event.name}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "${event.name}", Toast.LENGTH_SHORT).show()
             }
-        })
+        }, requireActivity().application)  // Berikan Application di sini
 
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -178,7 +182,6 @@ class HomeFragment : Fragment() {
             }
         }
     }
-
 
     private fun startCameraX() {
         val intent = Intent(requireContext(), CameraActivity::class.java)

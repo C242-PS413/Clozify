@@ -12,28 +12,28 @@ object DummyData {
         topWear = listOf(
             TopWearItem(
                 recommendationsItem = RecommendationItem(
-                    image = "android.resource://com.c242ps413.clozify/drawable/baju",  // Gambar T-shirt dari drawable
+                    image = "android.resource://com.c242ps413.clozify/drawable/baju",
                     name = "Baju"
                 ),
                 moreRecommendedItems = listOf(
                     RecommendationItem(
-                        image = "android.resource://com.c242ps413.clozify/drawable/dummybaju2",  // Gambar Hoodie dari drawable
+                        image = "android.resource://com.c242ps413.clozify/drawable/dummybaju2",
                         name = "Blouse"
                     ),
                     RecommendationItem(
-                        image = "android.resource://com.c242ps413.clozify/drawable/dummybaju3",  // Gambar Jacket dari drawable
+                        image = "android.resource://com.c242ps413.clozify/drawable/dummybaju3",
                         name = "Jacket"
                     )
                 )
             ),
             TopWearItem(
                 recommendationsItem = RecommendationItem(
-                    image = "android.resource://com.c242ps413.clozify/drawable/baju",  // Gambar Polo Shirt
+                    image = "android.resource://com.c242ps413.clozify/drawable/baju",
                     name = "Baju"
                 ),
                 moreRecommendedItems = listOf(
                     RecommendationItem(
-                        image = "android.resource://com.c242ps413.clozify/drawable/dummybaju",  // Gambar Sweater
+                        image = "android.resource://com.c242ps413.clozify/drawable/dummybaju",
                         name = "Sweater"
                     )
                 )
@@ -42,28 +42,28 @@ object DummyData {
         bottomwear = listOf(
             BottomWearItem(
                 inputItem = RecommendationItem(
-                    image = "android.resource://com.c242ps413.clozify/drawable/celana",  // Gambar Jeans
+                    image = "android.resource://com.c242ps413.clozify/drawable/celana",
                     name = "Celana"
                 ),
                 recommendedItems = listOf(
                     RecommendationItem(
-                        image = "android.resource://com.c242ps413.clozify/drawable/dummycelana2",  // Gambar Shorts
+                        image = "android.resource://com.c242ps413.clozify/drawable/dummycelana2",
                         name = "Skirt"
                     ),
                     RecommendationItem(
-                        image = "android.resource://com.c242ps413.clozify/drawable/dummycelana3",  // Gambar Chinos
+                        image = "android.resource://com.c242ps413.clozify/drawable/dummycelana3",
                         name = "Jeans"
                     )
                 )
             ),
             BottomWearItem(
                 inputItem = RecommendationItem(
-                    image = "android.resource://com.c242ps413.clozify/drawable/celana",  // Gambar Leggings
+                    image = "android.resource://com.c242ps413.clozify/drawable/celana",
                     name = "Celana"
                 ),
                 recommendedItems = listOf(
                     RecommendationItem(
-                        image = "android.resource://com.c242ps413.clozify/drawable/dummycelanaa",  // Gambar Cargo Pants
+                        image = "android.resource://com.c242ps413.clozify/drawable/dummycelanaa",
                         name = "Cloth Pants"
                     )
                 )
@@ -72,28 +72,28 @@ object DummyData {
         footwear = listOf(
             FootwearItem(
                 recommendationsItem = RecommendationItem(
-                    image = "android.resource://com.c242ps413.clozify/drawable/sepatu",  // Gambar Sneakers
+                    image = "android.resource://com.c242ps413.clozify/drawable/sepatu",
                     name = "Sepatu"
                 ),
                 moreRecommendedItems = listOf(
                     RecommendationItem(
-                        image = "android.resource://com.c242ps413.clozify/drawable/dummysepatuu",  // Gambar Boots
+                        image = "android.resource://com.c242ps413.clozify/drawable/dummysepatuu",
                         name = "Boots"
                     ),
                     RecommendationItem(
-                        image = "android.resource://com.c242ps413.clozify/drawable/dummysepatu2",  // Gambar Slippers
+                        image = "android.resource://com.c242ps413.clozify/drawable/dummysepatu2",
                         name = "High Heels"
                     )
                 )
             ),
             FootwearItem(
                 recommendationsItem = RecommendationItem(
-                    image = "android.resource://com.c242ps413.clozify/drawable/sepatu",  // Gambar Sandals
+                    image = "android.resource://com.c242ps413.clozify/drawable/sepatu",
                     name = "Sepatu"
                 ),
                 moreRecommendedItems = listOf(
                     RecommendationItem(
-                        image = "android.resource://com.c242ps413.clozify/drawable/dummysepatu3",  // Gambar Loafers
+                        image = "android.resource://com.c242ps413.clozify/drawable/dummysepatu3",
                         name = "Sneakers"
                     )
                 )
