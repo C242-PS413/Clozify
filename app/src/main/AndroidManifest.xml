@@ -13,6 +13,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
+        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -27,10 +28,10 @@
             android:exported="false" />
         <activity
             android:name=".ui.upload.CameraActivity"
-            android:exported="false" /> <!-- Activity untuk Update Profile -->
+            android:exported="false" />
         <activity
             android:name=".ui.profile.editprofile.ProfileUpdateActivity"
-            android:exported="false" /> <!-- Splash Screen Activity -->
+            android:exported="false" />
         <activity
             android:name=".SplashActivity"
             android:exported="true">

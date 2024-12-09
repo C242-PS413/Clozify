@@ -1,7 +1,12 @@
 package com.c242ps413.clozify.data.retrofit
 
+import com.c242ps413.clozify.data.api.response.MoodResponse
 import com.c242ps413.clozify.data.api.response.Response
+import okhttp3.MultipartBody
 import retrofit2.http.GET
+import retrofit2.http.Multipart
+import retrofit2.http.POST
+import retrofit2.http.Part
 import retrofit2.http.Query
 
 interface ApiService {
@@ -10,4 +15,10 @@ interface ApiService {
         @Query("q") city: String,
         @Query("appid") appId: String
     ): Response
+
+    @Multipart
+    @POST("classify")
+    suspend fun uploadImage(
+        @Part file: MultipartBody.Part
+    ): MoodResponse
 }
