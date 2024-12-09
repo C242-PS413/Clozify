@@ -97,7 +97,6 @@ class ProfileUpdateActivity : AppCompatActivity() {
                 gender = gender ?: ""
             )
 
-            // Save or update the profile
             saveOrUpdateProfile(profile)
         }
 
@@ -114,14 +113,12 @@ class ProfileUpdateActivity : AppCompatActivity() {
                 viewModel.update(profile)
                 Toast.makeText(this, "Profile successfully updated", Toast.LENGTH_SHORT).show()
 
-                // Navigate back to ProfileFragment
                 val fragmentTransaction: FragmentTransaction = supportFragmentManager.beginTransaction()
                 val profileFragment = ProfileFragment()
                 fragmentTransaction.replace(R.id.fragment_container, profileFragment)
                 fragmentTransaction.addToBackStack(null)
                 fragmentTransaction.commit()
             } else {
-                // Insert new profile
                 viewModel.insert(profile)
                 Toast.makeText(this, "New profile added", Toast.LENGTH_SHORT).show()
             }
@@ -129,7 +126,6 @@ class ProfileUpdateActivity : AppCompatActivity() {
         })
     }
 
-    // Get current location
     private fun getLocation() {
         binding.progressBar.visibility = ProgressBar.VISIBLE
         binding.editTextLocation.text?.clear()

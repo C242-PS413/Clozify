@@ -32,30 +32,24 @@ class HomeAdapter(private val listener: OnItemClickListener, private val applica
         val favoriteRepository = FavoriteRepository(application)
         val imageKey = event.image ?: ""
 
-        // Observasi status favorit
         favoriteRepository.getFavoriteByImage(imageKey).observe(holder.itemView.context as LifecycleOwner) { favorite ->
-            // Update ikon favorit dan tag ImageView
             if (favorite != null) {
                 holder.binding.ivFavorite.setImageResource(R.drawable.ic_favorite)
-                holder.binding.ivFavorite.tag = "Saved" // Update tag menjadi "Saved"
+                holder.binding.ivFavorite.tag = "Saved"
             } else {
                 holder.binding.ivFavorite.setImageResource(R.drawable.ic_favoriteborder)
-                holder.binding.ivFavorite.tag = "Not Saved" // Update tag menjadi "Not Saved"
+                holder.binding.ivFavorite.tag = "Not Saved"
             }
 
-            // Set click listener
             holder.binding.ivFavorite.setOnClickListener {
-                // Periksa tag untuk mengetahui status favorit
                 if (holder.binding.ivFavorite.tag == "Saved") {
-                    // Jika sudah ada di favorit, hapus dari database
                     favoriteRepository.delete(favorite)
-                    holder.binding.ivFavorite.tag = "Not Saved" // Update tag ke "Not Saved"
+                    holder.binding.ivFavorite.tag = "Not Saved"
                     holder.binding.ivFavorite.setImageResource(R.drawable.ic_favoriteborder)
                 } else {
-                    // Jika belum ada di favorit, tambahkan ke database
                     val favoriteItem = Favorite(name = event.name, image = event.image)
                     favoriteRepository.insert(favoriteItem)
-                    holder.binding.ivFavorite.tag = "Saved" // Update tag ke "Saved"
+                    holder.binding.ivFavorite.tag = "Saved"
                     holder.binding.ivFavorite.setImageResource(R.drawable.ic_favorite)
                 }
             }
@@ -69,9 +63,8 @@ class HomeAdapter(private val listener: OnItemClickListener, private val applica
                 .load(event.image)
                 .into(binding.image)
 
-            // Set click listener
             binding.root.setOnClickListener {
-                listener.onItemClick(event) // Panggil listener saat item diklik
+                listener.onItemClick(event)
             }
         }
     }

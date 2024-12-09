@@ -9,7 +9,7 @@ import com.c242ps413.clozify.data.repository.ProfileRepository
 
 class HomeViewModel(
     private val profileRepository: ProfileRepository,
-    private val favoriteRepository: FavoriteRepository // Menambahkan favoriteRepository jika dibutuhkan
+    private val favoriteRepository: FavoriteRepository
 ) : ViewModel() {
 
     val profileData: LiveData<Profile> = profileRepository.getProfileById(1)

@@ -39,7 +39,6 @@ class ProfileFragment : Fragment() {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        // Dark Mode Switch Logic
         val settingsPreferences = SettingPreferences.getInstance(requireContext().dataStore)
         val factory = SettingsViewModelFactory(settingsPreferences)
         settingsViewModel = ViewModelProvider(this, factory).get(SettingsViewModel::class.java)
@@ -59,20 +58,17 @@ class ProfileFragment : Fragment() {
             settingsViewModel.saveThemeSetting(isChecked)
         }
 
-        // Navigate to Profile Update Activity
         binding.EditProfile.setOnClickListener {
             val intent = Intent(requireContext(), ProfileUpdateActivity::class.java)
             startActivity(intent)
         }
 
-        // Observe Profile Data
         observeProfileData()
 
         return root
     }
 
     private fun observeProfileData() {
-        // Observe profile data using the correct ViewModel
         profileViewModel.getAllProfile().observe(viewLifecycleOwner) { profiles ->
             if (profiles.isNotEmpty()) {
                 val profile = profiles[0]
@@ -80,7 +76,6 @@ class ProfileFragment : Fragment() {
                 binding.profilegender.text = profile.gender
                 binding.profilelocation.text = profile.location
 
-                // Load profile image using Glide
                 profile.imgProfile?.let { imagePath ->
                     val file = File(imagePath)
                     if (file.exists()) {
@@ -88,9 +83,8 @@ class ProfileFragment : Fragment() {
                             .load(file)
                             .into(binding.profileimage)
                     } else {
-                        // Handle case where image file doesn't exist
                         Glide.with(requireContext())
-                            .load(R.drawable.clozify_rb) // A default image
+                            .load(R.drawable.clozify_rb)
                             .into(binding.profileimage)
                     }
                 } ?: run {

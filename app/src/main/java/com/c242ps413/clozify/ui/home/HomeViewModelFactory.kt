@@ -7,12 +7,12 @@ import com.c242ps413.clozify.data.repository.ProfileRepository
 
 class HomeViewModelFactory(
     private val profileRepository: ProfileRepository,
-    private val favoriteRepository: FavoriteRepository // Tambahkan FavoriteRepository
+    private val favoriteRepository: FavoriteRepository
 ) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
-            return HomeViewModel(profileRepository, favoriteRepository) as T // Pass keduanya ke ViewModel
+            return HomeViewModel(profileRepository, favoriteRepository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

@@ -15,16 +15,13 @@ class UploadActivity : AppCompatActivity() {
         binding = ActivityUploadBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Receive image URI
         val imageUriString = intent.getStringExtra(EXTRA_IMAGE_URI)
         if (imageUriString != null) {
             val imageUri = Uri.parse(imageUriString)
             binding.previewImageView.setImageURI(imageUri)
 
-            // Extract the filename from the URI
             val fileName = getFileNameFromUri(imageUri)
 
-            // Display the filename in the TextView (mendapatkan nama file photo)
             //binding.textViewDeskripsi.text = "$fileName"
         } else {
             Toast.makeText(this, "No image to display", Toast.LENGTH_SHORT).show()

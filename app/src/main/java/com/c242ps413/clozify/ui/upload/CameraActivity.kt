@@ -20,7 +20,7 @@ import com.c242ps413.clozify.databinding.ActivityCameraBinding
 
 class CameraActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCameraBinding
-    private var cameraSelector: CameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA // Default kamera depan
+    private var cameraSelector: CameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
     private var imageCapture: ImageCapture? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -90,7 +90,7 @@ class CameraActivity : AppCompatActivity() {
                 cameraProvider.unbindAll()
                 cameraProvider.bindToLifecycle(
                     this,
-                    cameraSelector, // Menggunakan cameraSelector untuk menentukan kamera
+                    cameraSelector,
                     preview,
                     imageCapture
                 )

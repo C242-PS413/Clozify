@@ -62,10 +62,10 @@ data class Clouds(
 data class Main(
 
 	@field:SerializedName("temp")
-	val temp: Double? = null,  // Ubah ke Double
+	val temp: Double? = null,
 
 	@field:SerializedName("temp_min")
-	val tempMin: Double? = null, // Ubah ke Double
+	val tempMin: Double? = null,
 
 	@field:SerializedName("grnd_level")
 	val grndLevel: Int? = null,

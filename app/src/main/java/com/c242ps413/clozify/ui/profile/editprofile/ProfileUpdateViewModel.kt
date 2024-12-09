@@ -10,20 +10,16 @@ class ProfileUpdateViewModel(application: Application) : AndroidViewModel(applic
 
     private val repository: ProfileRepository = ProfileRepository(application)
 
-    // Get Profile by ID
     fun getProfileById(id: Int): LiveData<Profile> = repository.getProfileById(id)
 
-    // Insert Profile
     fun insert(profile: Profile) {
         repository.insert(profile)
     }
 
-    // Get all Profiles
     fun getAllProfile(): LiveData<List<Profile>> {
-        return repository.getAllProfile() // Return LiveData without direct observation
+        return repository.getAllProfile()
     }
 
-    // Update Profile
     fun update(profile: Profile) {
         repository.update(profile)
     }

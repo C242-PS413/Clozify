@@ -56,35 +56,31 @@ class HomeFragment : Fragment() {
     ): View {
         val application = requireActivity().application
         val profileRepository = ProfileRepository(application)
-        val favoriteRepository = FavoriteRepository(application)  // Tambahkan FavoriteRepository
+        val favoriteRepository = FavoriteRepository(application)
         val homeViewModel = ViewModelProvider(
-            this, HomeViewModelFactory(profileRepository, favoriteRepository) // Berikan keduanya ke factory
+            this, HomeViewModelFactory(profileRepository, favoriteRepository)
         )[HomeViewModel::class.java]
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        // CameraX Permission
         if (!allPermissionsGranted()) {
             requestPermissionLauncher.launch(REQUIRED_PERMISSION)
         }
 
-        // Set Button Listener
         binding.getbutton.setOnClickListener { startCameraX() }
 
-        // Initialize Adapter for Recommendations
         homeAdapter = HomeAdapter(object : HomeAdapter.OnItemClickListener {
             override fun onItemClick(event: RecommendationItem) {
                 Toast.makeText(requireContext(), "${event.name}", Toast.LENGTH_SHORT).show()
             }
-        }, requireActivity().application)  // Berikan Application di sini
+        }, requireActivity().application)
 
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = homeAdapter
         }
 
-        // Update recycler view based on selected category
         binding.radioGroupOutfit.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.radioTopwear -> updateRecyclerView(allRecommendations.topWear.flatMap { it.moreRecommendedItems })
@@ -93,26 +89,21 @@ class HomeFragment : Fragment() {
             }
         }
 
-        // Automatically select Topwear category when the app is first opened
         binding.radioGroupOutfit.check(R.id.radioTopwear)
         updateRecyclerView(allRecommendations.topWear.flatMap { it.moreRecommendedItems })
 
-        // Observe Profile Data
         homeViewModel.profileData.observe(viewLifecycleOwner) { profile ->
             profile?.let {
                 binding.textHome.text = "Hi, ${profile.username}!"
                 binding.locationlabel.text = profile.location
 
-                // Load profile image
                 Glide.with(this)
                     .load(profile.imgProfile)
                     .circleCrop()
                     .into(binding.profileImage)
 
-                // Fetch Weather
                 fetchWeather(profile.location)
 
-                // Fetch Recommendations
                 fetchRecommendations()
             }
         }
@@ -130,34 +121,27 @@ class HomeFragment : Fragment() {
                 val apiService = ApiConfig.getApiService()
                 val response = apiService.getCurrentWeather(city, "cafea1a8d3c32cd638c250d344272776") // API key
 
-                // Periksa apakah response berhasil
                 if (response.weather != null && response.weather.isNotEmpty() && response.main?.temp != null) {
-                    // Jika respons berhasil, update UI
                     val currentWeather = response.weather[0]?.main
                     val description = response.weather[0]?.description
                     val tempInKelvin = response.main?.temp
 
-                    // Convert ke Celsius
-                    val tempInCelsius = tempInKelvin?.minus(273.15) // Konversi ke Celsius
+                    val tempInCelsius = tempInKelvin?.minus(273.15)
                     val temperature: String = DecimalFormat("##.##").format(tempInCelsius)
 
-                    // Update UI dengan data cuaca
                     withContext(Dispatchers.Main) {
                         binding.temperatureLabel.text = "$currentWeather $temperature°C"
                     }
                 } else {
-                    // Jika data cuaca tidak ditemukan
                     withContext(Dispatchers.Main) {
                         Toast.makeText(requireContext(), "Data cuaca tidak ditemukan", Toast.LENGTH_SHORT).show()
                     }
                 }
             } catch (e: HttpException) {
-                // Tangani error HTTP
                 withContext(Dispatchers.Main) {
                     Toast.makeText(requireContext(), "HTTP Error: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
-                // Tangani error lainnya seperti kesalahan jaringan
                 withContext(Dispatchers.Main) {
                     Toast.makeText(requireContext(), "Error: ${e.localizedMessage}", Toast.LENGTH_SHORT).show()
                 }
@@ -168,14 +152,11 @@ class HomeFragment : Fragment() {
     private fun fetchRecommendations() {
         lifecycleScope.launch {
             try {
-                // Jika kamu menggunakan API, ganti kode ini dengan API call.
-                val recommendations = allRecommendations // Data dummy yang digunakan saat ini
+                val recommendations = allRecommendations
 
-                // Update RecyclerView dengan data rekomendasi
                 updateRecyclerView(recommendations.topWear.flatMap { it.moreRecommendedItems })
 
             } catch (e: Exception) {
-                // Tangani error jika terjadi masalah saat fetch data
                 withContext(Dispatchers.Main) {
                     Toast.makeText(requireContext(), "Gagal mengambil rekomendasi: ${e.localizedMessage}", Toast.LENGTH_SHORT).show()
                 }
