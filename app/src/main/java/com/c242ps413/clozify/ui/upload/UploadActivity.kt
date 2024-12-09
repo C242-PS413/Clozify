@@ -36,8 +36,13 @@ class UploadActivity : AppCompatActivity() {
             Toast.makeText(this, "No image to display", Toast.LENGTH_SHORT).show()
         }
 
+        // Disable tombol saat memulai proses
         binding.moodbutton.setOnClickListener {
             imageUri?.let { uri ->
+                // Disable tombol saat proses dimulai
+                binding.moodbutton.isEnabled = false
+                binding.uploadButton.isEnabled = false // Disable tombol rekomendasi juga
+
                 uploadImageToServer(uri)
             } ?: run {
                 Toast.makeText(this, "Image not found!", Toast.LENGTH_SHORT).show()
@@ -62,14 +67,19 @@ class UploadActivity : AppCompatActivity() {
 
                     withContext(Dispatchers.Main) {
                         binding.progressIndicator.visibility = android.view.View.GONE
-
                         binding.textViewDeskripsi.text = response.predicted_mood ?: "Unknown mood"
+
+                        binding.moodbutton.isEnabled = true
+                        binding.uploadButton.isEnabled = true
                     }
                 } catch (e: Exception) {
                     withContext(Dispatchers.Main) {
                         binding.progressIndicator.visibility = android.view.View.GONE
                         Toast.makeText(this@UploadActivity, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
                         Log.e("UploadActivity", "Error uploading image", e)
+
+                        binding.moodbutton.isEnabled = true
+                        binding.uploadButton.isEnabled = true
                     }
                 }
             }
@@ -103,3 +113,4 @@ class UploadActivity : AppCompatActivity() {
         const val EXTRA_IMAGE_URI = "extra_image_uri"
     }
 }
+
