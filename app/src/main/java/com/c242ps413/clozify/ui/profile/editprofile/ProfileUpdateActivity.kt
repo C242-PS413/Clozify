@@ -11,6 +11,8 @@ import android.location.Location
 import android.media.ExifInterface
 import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
@@ -41,6 +43,12 @@ class ProfileUpdateActivity : AppCompatActivity() {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var viewModel: ProfileUpdateViewModel
 
+    // Inisialisasi variabel untuk memantau perubahan pada field-field
+    private var isUsernameFilled = false
+    private var isLocationFilled = false
+    private var isGenderSelected = false
+    private var isProfileImageFilled = false // Tambahkan status gambar profil
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileUpdateBinding.inflate(layoutInflater)
@@ -67,7 +75,22 @@ class ProfileUpdateActivity : AppCompatActivity() {
                     "Men" -> binding.radioGroupGender.check(R.id.radioMale)
                     else -> binding.radioGroupGender.clearCheck()
                 }
+
+                // Memperbarui status untuk gambar dan data lainnya
+                isUsernameFilled = profile.username.isNotBlank()
+                isLocationFilled = profile.location.isNotBlank()
+                isGenderSelected = profile.gender.isNotBlank()
+                isProfileImageFilled = profile.imgProfile != null
+            } else {
+                // Jika tidak ada profil yang ditemukan, setel semuanya ke status "belum terisi"
+                isUsernameFilled = false
+                isLocationFilled = false
+                isGenderSelected = false
+                isProfileImageFilled = false
             }
+
+            // Update status tombol simpan
+            updateSaveButtonState()
         })
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
@@ -103,6 +126,43 @@ class ProfileUpdateActivity : AppCompatActivity() {
         binding.fabCamera.setOnClickListener {
             startGallery()
         }
+
+        binding.editTextName.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                isUsernameFilled = s?.isNotBlank() ?: false
+                updateSaveButtonState()
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+        binding.editTextLocation.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                isLocationFilled = s?.isNotBlank() ?: false
+                updateSaveButtonState()
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+        binding.radioGroupGender.setOnCheckedChangeListener { _, checkedId ->
+            isGenderSelected = checkedId != -1
+            updateSaveButtonState()
+        }
+
+        binding.profileimageupdate.setOnClickListener {
+            isProfileImageFilled = true
+            updateSaveButtonState()
+        }
+    }
+
+    private fun updateSaveButtonState() {
+        val isAllFieldsFilled = isUsernameFilled && isLocationFilled && isGenderSelected && isProfileImageFilled
+        binding.SaveProfile.isEnabled = isAllFieldsFilled
     }
 
     private fun saveOrUpdateProfile(profile: Profile) {
@@ -184,8 +244,13 @@ class ProfileUpdateActivity : AppCompatActivity() {
     private val launcherGallery = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri: Uri? ->
         if (uri != null) {
             currentImageUri = uri
+            // Konversi gambar yang dipilih menjadi byte array
             val byteArray = uriToByteArrayWithOrientation(uri)
             showImage(byteArray)
+
+            // Memperbarui status gambar profil
+            isProfileImageFilled = true
+            updateSaveButtonState() // Pastikan tombol simpan diperbarui
         }
     }
 

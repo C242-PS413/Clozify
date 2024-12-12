@@ -81,3 +81,45 @@ class HomeAdapter(private val listener: OnItemClickListener, private val applica
         }
     }
 }
+/*class HomeAdapter(private val listener: OnItemClickListener, private val application: Application) :
+    ListAdapter<MoreRecommendedItemsItem, HomeAdapter.MyViewHolder>(DIFF_CALLBACK) {
+
+    interface OnItemClickListener {
+        fun onItemClick(event: MoreRecommendedItemsItem)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+        val binding = ItemRecommendationBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MyViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        val event = getItem(position)
+        holder.bind(event, listener)
+    }
+
+    class MyViewHolder(val binding: ItemRecommendationBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(event: MoreRecommendedItemsItem, listener: OnItemClickListener) {
+            binding.tvItemDescription.text = event.name
+            Glide.with(binding.root.context)
+                .load(event.image)
+                .into(binding.image)
+
+            binding.root.setOnClickListener {
+                listener.onItemClick(event)
+            }
+        }
+    }
+
+    companion object {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<MoreRecommendedItemsItem>() {
+            override fun areItemsTheSame(oldItem: MoreRecommendedItemsItem, newItem: MoreRecommendedItemsItem): Boolean {
+                return oldItem.name == newItem.name
+            }
+
+            override fun areContentsTheSame(oldItem: MoreRecommendedItemsItem, newItem: MoreRecommendedItemsItem): Boolean {
+                return oldItem == newItem
+            }
+        }
+    }
+}*/

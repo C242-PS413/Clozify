@@ -59,11 +59,6 @@ class FavoriteFragment : Fragment() {
 
 
     private fun observeViewModel() {
-        // Observe loading state
-        FavoriteViewModel.isLoading.observe(viewLifecycleOwner, Observer { isLoading ->
-            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-        })
-
         // Observe data dari ViewModel
         FavoriteViewModel.getAllFavorites().observe(viewLifecycleOwner, Observer { favoriteEvents ->
             Log.d(TAG, "Data favorite events observed: ${favoriteEvents.size} items") // Debug log

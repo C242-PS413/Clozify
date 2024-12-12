@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Theme Attributes -->
+    <attr name="backgroundColor" format="color" />
+    <attr name="surfaceColor" format="color" />
+    <attr name="cardColor" format="color" />
+    <attr name="textPrimaryColor" format="color" />
+    <attr name="textSecondaryColor" format="color" />
+
+    <!-- Navigation Attributes -->
+    <attr name="bottomNavBackground" format="color" />
+    <attr name="bottomNavIconTint" format="color" />
+</resources>

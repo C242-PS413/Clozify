@@ -3,7 +3,6 @@ package com.c242ps413.clozify.data.api.response
 import com.google.gson.annotations.SerializedName
 
 data class Response(
-
 	@field:SerializedName("rain")
 	val rain: Rain? = null,
 
@@ -48,19 +47,16 @@ data class Response(
 )
 
 data class Rain(
-
 	@field:SerializedName("1h")
 	val jsonMember1h: Any? = null
 )
 
 data class Clouds(
-
 	@field:SerializedName("all")
 	val all: Int? = null
 )
 
 data class Main(
-
 	@field:SerializedName("temp")
 	val temp: Double? = null,
 
@@ -80,19 +76,19 @@ data class Main(
 	val seaLevel: Int? = null,
 
 	@field:SerializedName("feels_like")
-	val feelsLike: Double? = null,  // Ubah ke Double
+	val feelsLike: Double? = null,
 
 	@field:SerializedName("temp_max")
-	val tempMax: Double? = null // Ubah ke Double
+	val tempMax: Double? = null
 )
 
 data class Coord(
 
 	@field:SerializedName("lon")
-	val lon: Double? = null, // Ubah ke Double
+	val lon: Double? = null,
 
 	@field:SerializedName("lat")
-	val lat: Double? = null // Ubah ke Double
+	val lat: Double? = null
 )
 
 data class Wind(
@@ -101,14 +97,13 @@ data class Wind(
 	val deg: Int? = null,
 
 	@field:SerializedName("speed")
-	val speed: Double? = null,  // Ubah ke Double
+	val speed: Double? = null,
 
 	@field:SerializedName("gust")
-	val gust: Double? = null  // Ubah ke Double
+	val gust: Double? = null
 )
 
 data class Sys(
-
 	@field:SerializedName("country")
 	val country: String? = null,
 
@@ -120,7 +115,6 @@ data class Sys(
 )
 
 data class WeatherItem(
-
 	@field:SerializedName("icon")
 	val icon: String? = null,
 

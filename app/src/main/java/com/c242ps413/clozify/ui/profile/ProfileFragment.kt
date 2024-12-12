@@ -88,7 +88,6 @@ class ProfileFragment : Fragment() {
                             .into(binding.profileimage)
                     }
                 } ?: run {
-                    // Handle case where imgProfile is null
                     Glide.with(requireContext())
                         .load(R.drawable.clozify_rb) // A default image
                         .into(binding.profileimage)
